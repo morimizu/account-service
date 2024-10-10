@@ -1,6 +1,7 @@
 package org.benjaminrperry.accountservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.benjaminrperry.accountservice.api.LoginRequestDTO;
 import org.benjaminrperry.accountservice.api.RegistrationDTO;
 import org.benjaminrperry.accountservice.db.model.Account;
 import org.benjaminrperry.accountservice.db.repository.account.AccountRepository;
@@ -29,5 +30,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getAccountByEmail(String email) {
         return accountRepository.findByEmail(email);
+    }
+
+    @Override
+    public String authenticate(LoginRequestDTO loginRequest) {
+        return "";
     }
 }
