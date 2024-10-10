@@ -3,6 +3,7 @@ package org.benjaminrperry.accountservice.controller;
 import lombok.RequiredArgsConstructor;
 import org.benjaminrperry.accountservice.api.AccountDTO;
 import org.benjaminrperry.accountservice.api.RegistrationDTO;
+import org.benjaminrperry.accountservice.configuration.EnableRestCallLogging;
 import org.benjaminrperry.accountservice.db.model.Account;
 import org.benjaminrperry.accountservice.service.AccountService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseStatus(CREATED)
+    @EnableRestCallLogging
     public AccountDTO register(@RequestBody RegistrationDTO requestBody) {
        return convert(this.accountService.register(requestBody));
     }
