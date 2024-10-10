@@ -62,4 +62,9 @@ public class AccountJpa implements Account, Serializable {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return true;
+    }
 }

@@ -17,4 +17,6 @@ public interface Account {
     List<Credential> getCredentials();
 
     Credential getCredentialByType(CredentialType type);
+
+    boolean hasPermission(String permission);
 }

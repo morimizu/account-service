@@ -2,16 +2,30 @@ package org.benjaminrperry.accountservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.benjaminrperry.accountservice.api.LoginRequestDTO;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.benjaminrperry.accountservice.service.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/account/authenticate")
+@RequestMapping("/account")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    public String authenticate(@RequestBody LoginRequestDTO loginRequest) {
+    private final AccountService accountService;
 
+    @PostMapping("/authenticate")
+    @ResponseStatus(HttpStatus.OK)
+    public String authenticate(@RequestBody LoginRequestDTO loginRequest) {
+        return accountService.authenticate(loginRequest);
+    }
+
+    @PostMapping("/authorize")
+    @ResponseStatus(HttpStatus.OK)
+    public String authorize(WebRequest request, @RequestBody List<String> permissions) {
+        accountService.authorize(request.getHeader("Authorization"), permissions);
+        return "authorized";
     }
 }
