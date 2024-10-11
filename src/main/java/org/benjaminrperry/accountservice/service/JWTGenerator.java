@@ -1,10 +1,12 @@
 package org.benjaminrperry.accountservice.service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwe;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.benjaminrperry.accountservice.db.model.Account;
+import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -13,7 +15,9 @@ import java.time.Instant;
 
 @Component
 public class JWTGenerator {
-    private SecretKey key = Jwts.SIG.HS256.key().build();
+
+    private String tokenSecret = "lsadjdkjadljlakdjaslkjkdsjdhfeinnclsdiwneicnsdksanmwkdsnaweha";
+    private SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(this.tokenSecret));
 
     private JwtParser parser = Jwts.parser().verifyWith(key).build();
 
@@ -22,7 +26,7 @@ public class JWTGenerator {
     public String generateToken(Account account) {
         return Jwts.builder()
                 .issuer(issuer)
-                .subject(account.getId().toString())
+                .subject(account.getUsername())
                 .issuedAt(Date.from(Instant.now()))
                 .signWith(key)
                 .compact();

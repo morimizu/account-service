@@ -45,8 +45,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void authorize(String token, List<String> permissions) {
-        Long id = Long.valueOf(jwtGenerator.getClaims(token).getSubject());
-        Account account = accountRepository.findById(id);
+        String username = jwtGenerator.getClaims(token).getSubject();
+        Account account = accountRepository.findByUsername(username);
         if (!permissions.stream().allMatch(account::hasPermission)) {
             throw new RuntimeException("You don't have access.");
         }
