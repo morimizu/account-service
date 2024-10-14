@@ -6,6 +6,7 @@ import org.benjaminrperry.accountservice.configuration.EnableRestCallLogging;
 import org.benjaminrperry.accountservice.converter.AccountConverter;
 import org.benjaminrperry.accountservice.service.AccountService;
 import org.benjaminrperry.accountservice.service.JWTGenerator;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -22,6 +23,7 @@ public class AccountController {
 
     @GetMapping("/accountInfo")
     @EnableRestCallLogging
+    @CrossOrigin("http://localhost:4200")
     public AccountDTO getAccountInfo(WebRequest request) {
         var token = request.getHeader("Authorization");
         accountService.authorize(token, List.of("Get Account Info"));

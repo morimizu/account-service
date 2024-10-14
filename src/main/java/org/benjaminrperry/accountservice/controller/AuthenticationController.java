@@ -2,6 +2,7 @@ package org.benjaminrperry.accountservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.benjaminrperry.accountservice.api.LoginRequestDTO;
+import org.benjaminrperry.accountservice.api.TokenDTO;
 import org.benjaminrperry.accountservice.configuration.EnableRestCallLogging;
 import org.benjaminrperry.accountservice.service.AccountService;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class AuthenticationController {
 
     private final AccountService accountService;
@@ -20,8 +22,8 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
     @EnableRestCallLogging
-    public String authenticate(@RequestBody LoginRequestDTO loginRequest) {
-        return accountService.authenticate(loginRequest);
+    public TokenDTO authenticate(@RequestBody LoginRequestDTO loginRequest) {
+        return TokenDTO.builder().token(accountService.authenticate(loginRequest)).build();
     }
 
     @PostMapping("/authorize")
