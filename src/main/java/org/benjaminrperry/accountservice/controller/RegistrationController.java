@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/account/registration")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin({"http://localhost:4200","chrome-extension://eipdnjedkpcnlmmdfdkgfpljanehloah"})
 public class RegistrationController {
 
     private final AccountService accountService;

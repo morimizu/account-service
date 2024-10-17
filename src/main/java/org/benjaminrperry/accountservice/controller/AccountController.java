@@ -23,7 +23,7 @@ public class AccountController {
 
     @GetMapping("/accountInfo")
     @EnableRestCallLogging
-    @CrossOrigin("http://localhost:4200")
+    @CrossOrigin({"http://localhost:8081","http://localhost:4200","chrome-extension://eipdnjedkpcnlmmdfdkgfpljanehloah"})
     public AccountDTO getAccountInfo(WebRequest request) {
         var token = request.getHeader("Authorization");
         accountService.authorize(token, List.of("Get Account Info"));

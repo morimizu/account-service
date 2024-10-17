@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <server.port>8080</server.port>
     </properties>
     <dependencies>
         <dependency>
@@ -94,6 +95,36 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.39.0</version>
+                <configuration>
+                    <pushRegistry>localhost:5000</pushRegistry>
+                    <containerNamePattern>%n</containerNamePattern>
+                    <images>
+                        <image>
+                            <alias>${project.name}</alias>
+                            <name>benjaminrperry/${project.name}:${project.version}</name>
+                            <build>
+                                <from>openjdk:17-alpine</from>
+                                <assemblies>
+                                    <assembly>
+                                        <mode>dir</mode>
+                                        <descriptorRef>artifact</descriptorRef>
+                                    </assembly>
+                                </assemblies>
+                                <entryPoint>java -jar maven/${project.artifactId}-${project.version}.jar</entryPoint>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>${server.port}:${server.port}</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
         </plugins>
