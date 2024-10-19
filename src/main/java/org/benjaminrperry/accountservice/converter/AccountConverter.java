@@ -4,6 +4,9 @@ import lombok.experimental.UtilityClass;
 import org.benjaminrperry.accountservice.api.AccountDTO;
 import org.benjaminrperry.accountservice.db.model.Account;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 @UtilityClass
 public class AccountConverter {
 
@@ -13,7 +16,7 @@ public class AccountConverter {
                 .email(account.getEmail())
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
-                .joinDate(account.getJoinDate())
+                .joinDate(LocalDate.ofInstant(account.getJoinDate(), ZoneId.systemDefault()))
                 .build();
     }
 

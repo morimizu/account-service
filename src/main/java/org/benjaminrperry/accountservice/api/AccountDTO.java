@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -20,5 +21,5 @@ public class AccountDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private Instant joinDate;
+    private LocalDate joinDate;
 }

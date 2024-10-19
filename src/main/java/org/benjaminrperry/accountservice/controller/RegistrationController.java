@@ -8,6 +8,9 @@ import org.benjaminrperry.accountservice.db.model.Account;
 import org.benjaminrperry.accountservice.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -31,7 +34,7 @@ public class RegistrationController {
                 .email(account.getEmail())
                 .firstName(account.getFirstName())
                 .lastName(account.getLastName())
-                .joinDate(account.getJoinDate())
+                .joinDate(LocalDate.ofInstant(account.getJoinDate(), ZoneId.systemDefault()))
                 .build();
     }
 }
